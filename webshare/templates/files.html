@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>我的文件</title>
+  <link rel="stylesheet" href="/static/bulma.min.css">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h2 class="title">你好，{{ username }}</h2>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <a href="{% url 'logout' %}" class="button is-light">退出</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 上传表单 -->
+    <div class="box">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            {{ form.file }}
+          </div>
+          <div class="control">
+            <button class="button is-link">上传</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- 文件列表 -->
+    <table class="table is-fullwidth is-striped">
+      <thead>
+        <tr>
+          <th>文件名</th>
+          <th>上传时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in files %}
+        <tr>
+          <td>{{ f.file.name|slice:"uploads/" }}</td>
+          <td>{{ f.uploaded_at|date:"Y-m-d H:i" }}</td>
+          <td>
+            <a class="button is-small is-info" href="{% url 'download' f.id %}">下载</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3" class="has-text-centered">暂无文件</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

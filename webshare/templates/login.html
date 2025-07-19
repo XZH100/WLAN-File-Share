@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>文件共享 – 登录</title>
+  <link rel="stylesheet" href="/static/bulma.min.css">
+</head>
+<body>
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <div class="box" style="margin-top:8em;">
+          <h1 class="title has-text-centered">局域网文件共享</h1>
+          <form method="post">
+            {% csrf_token %}
+            <div class="field">
+              <label class="label">用户名</label>
+              <div class="control">
+                <input class="input" type="text" name="username" placeholder="输入用户名" required>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button is-primary is-fullwidth">登录</button>
+              </div>
+            </div>
+          </form>
+        </div>
+  </div>
+</div>
+</body>
+</html>
